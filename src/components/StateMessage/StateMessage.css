@@ -1,0 +1,11 @@
+.state-message {
+	padding: 1rem;
+	border-radius: 0.75rem;
+	background: #f8fafc;
+	color: #475569;
+}
+
+.state-message--error {
+	background: #fee2e2;
+	color: #b91c1c;
+}

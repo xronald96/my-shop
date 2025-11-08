@@ -17,6 +17,6 @@ describe('Header', () => {
 	it('incluye enlaces de navegacion', () => {
 		const html = renderHeader();
 		expect(html).toContain('Listado');
-		expect(html).toContain('Detalle demo');
+		expect(html).toContain('Carrito');
 	});
 });

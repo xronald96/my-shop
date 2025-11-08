@@ -32,3 +32,14 @@
 	font-weight: 700;
 	font-size: 1.1rem;
 }
+
+.cart-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.35rem 0.9rem;
+	border-radius: 999px;
+	background: #0f172a;
+	color: #fff;
+	font-weight: 600;
+}
