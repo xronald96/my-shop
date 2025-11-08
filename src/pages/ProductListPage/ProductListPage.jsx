@@ -1,12 +1,19 @@
 import './ProductListPage.css';
 import '../../styles/utilities.css';
+import { useMemo, useState } from 'react';
 import { useProducts } from '../../hooks/useProducts.js';
 import Loader from '../../components/Loader/Loader.jsx';
 import ErrorState from '../../components/ErrorState/ErrorState.jsx';
 import ProductCard from '../../components/ProductCard/ProductCard.jsx';
+import SearchBar from '../../components/SearchBar/SearchBar.jsx';
+import EmptyState from '../../components/EmptyState/EmptyState.jsx';
+import { filterProducts } from '../../utils/filterProducts.js';
 
 const ProductListPage = () => {
 	const { data, loading, error } = useProducts();
+	const [query, setQuery] = useState('');
+
+	const filteredProducts = useMemo(() => filterProducts(data, query), [data, query]);
 
 	return (
 		<section className='product-list'>
@@ -15,13 +22,20 @@ const ProductListPage = () => {
 					<p className='muted'>Catalogo</p>
 					<h1>Listado de productos</h1>
 				</div>
+				<SearchBar value={query} onChange={setQuery} />
 			</header>
 			<div className='product-list__body'>
 				{loading && <Loader />}
 				{error && !loading && <ErrorState />}
-				{!loading && !error && (
+				{!loading && !error && filteredProducts.length === 0 && (
+					<EmptyState
+						title='No encontramos coincidencias'
+						description={`No hay resultados para "${query}". Intenta con otra marca o modelo.`}
+					/>
+				)}
+				{!loading && !error && filteredProducts.length > 0 && (
 					<ul className='product-list__grid'>
-						{data.map((product) => (
+						{filteredProducts.map((product) => (
 							<ProductCard key={product.id} product={product} />
 						))}
 					</ul>

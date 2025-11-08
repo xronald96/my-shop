@@ -10,6 +10,13 @@
 	margin: 0.25rem 0 0;
 }
 
+.product-list__header {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
 .product-list__body {
 	margin-top: 1.5rem;
 	min-height: 200px;
