@@ -1,0 +1,12 @@
+.muted {
+	color: #94a3b8;
+	font-size: 0.9rem;
+	margin: 0;
+}
+
+.back-link {
+	display: inline-block;
+	margin-bottom: 0.4rem;
+	color: #2563eb;
+	text-decoration: none;
+}

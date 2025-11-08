@@ -1,0 +1,15 @@
+.app-shell {
+	min-height: 100vh;
+	background: #0f172a;
+	padding: 2rem 1rem;
+}
+
+.app-shell a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.app-content {
+	max-width: 1200px;
+	margin: 0 auto;
+}

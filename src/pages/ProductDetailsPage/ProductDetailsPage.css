@@ -1,0 +1,16 @@
+.product-details {
+	background: #fff;
+	padding: 2rem;
+	border-radius: 1.25rem;
+	box-shadow: 0 20px 60px rgba(15, 23, 42, 0.25);
+}
+
+.product-details__header h1 {
+	margin: 0.25rem 0 0;
+}
+
+.product-details__body {
+	margin-top: 1.5rem;
+	min-height: 200px;
+	color: #475569;
+}
