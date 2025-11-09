@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { addProductToCart } from '../../services/api.js';
 import { useCart } from '../../hooks/useCart.js';
 import StateMessage from '../../components/StateMessage/StateMessage.jsx';
+import { useBreadcrumbs } from '../../hooks/useBreadcrumbs.js';
 
 const buildSpecs = (product) =>
 	[
@@ -28,6 +29,7 @@ const ProductDetailsPage = () => {
 	const { id } = useParams();
 	const { data: product, loading, error } = useProductDetails(id);
 	const { setCount } = useCart();
+	const { setBreadcrumbs } = useBreadcrumbs();
 	const [selectedColor, setSelectedColor] = useState('');
 	const [selectedStorage, setSelectedStorage] = useState('');
 	const [feedback, setFeedback] = useState(null);
@@ -55,7 +57,10 @@ const ProductDetailsPage = () => {
 				colorCode: selectedColor,
 				storageCode: selectedStorage,
 			});
-			setCount(count);
+			setCount((prev) => {
+				if (typeof count === 'number' && count > prev) return count;
+				return prev + 1;
+			});
 			setFeedback({ type: 'success', message: 'Producto añadido correctamente.' });
 		} catch {
 			setFeedback({ type: 'error', message: 'No pudimos añadir el producto.' });
@@ -63,6 +68,16 @@ const ProductDetailsPage = () => {
 			setSubmitting(false);
 		}
 	};
+
+	useEffect(() => {
+		const crumbs = product
+			? [
+					{ label: 'Productos', to: '/' },
+					{ label: product.model, to: `/product/${product.id}` },
+			  ]
+			: [{ label: 'Productos', to: '/' }];
+		setBreadcrumbs(crumbs);
+	}, [product, setBreadcrumbs]);
 
 	if (loading) {
 		return (

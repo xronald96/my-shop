@@ -33,6 +33,34 @@
 	font-size: 1.1rem;
 }
 
+.breadcrumbs {
+	flex: 1;
+}
+
+.breadcrumbs ol {
+	list-style: none;
+	display: flex;
+	gap: 0.5rem;
+	padding: 0;
+	margin: 0;
+	color: #94a3b8;
+}
+
+.breadcrumbs li {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+}
+
+.breadcrumbs li::after {
+	content: '/';
+	color: #475569;
+}
+
+.breadcrumbs li:last-child::after {
+	content: '';
+}
+
 .cart-chip {
 	display: inline-flex;
 	align-items: center;
