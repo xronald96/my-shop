@@ -8,31 +8,28 @@ export const useProductDetails = (id) => {
 
 	useEffect(() => {
 		if (!id) return undefined;
-		let ignore = false;
+		const controller = new AbortController();
+		const { signal } = controller;
 
 		const load = async () => {
 			setLoading(true);
 			try {
-				const product = await fetchProductById(id);
-				if (!ignore) {
-					setData(product);
-					setError(null);
-				}
+				const product = await fetchProductById(id, { signal });
+				setData(product);
+				setError(null);
 			} catch (err) {
-				if (!ignore) {
+				if (err.name !== 'AbortError') {
 					setError(err);
 				}
 			} finally {
-				if (!ignore) {
-					setLoading(false);
-				}
+				setLoading(false);
 			}
 		};
 
 		load();
 
 		return () => {
-			ignore = true;
+			controller.abort();
 		};
 	}, [id]);
 

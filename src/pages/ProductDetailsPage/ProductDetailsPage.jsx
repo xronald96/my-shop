@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useProductDetails } from '../../hooks/useProductDetails.js';
 import Loader from '../../components/Loader/Loader.jsx';
 import ErrorState from '../../components/ErrorState/ErrorState.jsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { addProductToCart } from '../../services/api.js';
 import { useCart } from '../../hooks/useCart.js';
 import StateMessage from '../../components/StateMessage/StateMessage.jsx';
@@ -35,6 +35,14 @@ const ProductDetailsPage = () => {
 
 	const colorOptions = product?.options?.colors ?? [];
 	const storageOptions = product?.options?.storages ?? [];
+
+	useEffect(() => {
+		if (!product) return;
+		const initialColor = product.options?.colors?.[0]?.code ?? '';
+		const initialStorage = product.options?.storages?.[0]?.code ?? '';
+		setSelectedColor(initialColor);
+		setSelectedStorage(initialStorage);
+	}, [product]);
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -76,13 +84,6 @@ const ProductDetailsPage = () => {
 				<ErrorState message='No pudimos cargar el producto.' />
 			</section>
 		);
-	}
-
-	if (!selectedColor && colorOptions.length) {
-		setSelectedColor(colorOptions[0].code);
-	}
-	if (!selectedStorage && storageOptions.length) {
-		setSelectedStorage(storageOptions[0].code);
 	}
 
 	const specs = buildSpecs(product);

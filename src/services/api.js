@@ -1,3 +1,5 @@
+import { cacheKeys, getAnyCachedData, getCachedData, setCachedData } from './cacheClient.js';
+
 export const API_BASE_URL = 'https://itx-frontend-test.onrender.com/api';
 
 const handleResponse = async (promise) => {
@@ -9,9 +11,38 @@ const handleResponse = async (promise) => {
 	return response.json();
 };
 
-export const fetchProducts = () => handleResponse(fetch(`${API_BASE_URL}/product`));
+const withCache = async (cacheKey, fetcher, { forceRefresh = false } = {}) => {
+	const cached = !forceRefresh ? getCachedData(cacheKey) : null;
+	if (cached) return cached;
 
-export const fetchProductById = (id) => handleResponse(fetch(`${API_BASE_URL}/product/${id}`));
+	const fallback = getAnyCachedData(cacheKey);
+
+	try {
+		const data = await fetcher();
+		setCachedData(cacheKey, data);
+		return data;
+	} catch (error) {
+		if (fallback) {
+			console.warn('Usando datos cacheados por error en el fetch:', error.message);
+			return fallback;
+		}
+		throw error;
+	}
+};
+
+export const fetchProducts = ({ signal, forceRefresh = false } = {}) =>
+	withCache(
+		cacheKeys.PRODUCTS,
+		() => handleResponse(fetch(`${API_BASE_URL}/product`, { signal })),
+		{ forceRefresh },
+	);
+
+export const fetchProductById = (id, { signal, forceRefresh = false } = {}) =>
+	withCache(
+		cacheKeys.productDetail(id),
+		() => handleResponse(fetch(`${API_BASE_URL}/product/${id}`, { signal })),
+		{ forceRefresh },
+	);
 
 export const addProductToCart = ({ id, colorCode, storageCode }) =>
 	handleResponse(
