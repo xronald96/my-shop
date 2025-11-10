@@ -1,8 +1,8 @@
 .empty-state {
 	text-align: center;
 	padding: 2rem 1rem;
-	color: #475569;
-	background: #f8fafc;
+	color: var(--color-gray);
+	background: var(--color-surface);
 	border-radius: 1rem;
 }
 
@@ -12,5 +12,5 @@
 
 .empty-state p {
 	margin: 0;
-	color: #64748b;
+	color: var(--color-muted-alt);
 }

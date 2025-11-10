@@ -1,6 +1,6 @@
 .app-shell {
 	min-height: 100vh;
-	background: #0f172a;
+	background: var(--color-bg);
 	padding: 2rem 1rem;
 }
 
