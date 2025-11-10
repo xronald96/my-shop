@@ -12,7 +12,7 @@ const Header = () => {
 			<div className='brand'>
 				<Link to='/'>myShop</Link>
 			</div>
-			<nav aria-label='Principal' className='breadcrumbs'>
+			<nav aria-label='Breadcrumb' className='breadcrumbs'>
 				<ol>
 					{items.map((crumb, index) => {
 						const isLast = index === items.length - 1;
@@ -25,7 +25,7 @@ const Header = () => {
 				</ol>
 			</nav>
 			<div className='cart-chip' aria-live='polite'>
-				<span>Carrito</span>
+				<span>Cart</span>
 				<strong>{count}</strong>
 			</div>
 		</header>

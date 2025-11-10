@@ -18,15 +18,15 @@ const ProductListPage = () => {
 	const filteredProducts = useMemo(() => filterProducts(data, query), [data, query]);
 
 	useEffect(() => {
-		setBreadcrumbs([{ label: 'Productos', to: '/' }]);
+		setBreadcrumbs([{ label: 'Products', to: '/' }]);
 	}, [setBreadcrumbs]);
 
 	return (
 		<section className='product-list'>
 			<header className='product-list__header'>
 				<div>
-					<p className='muted'>Catalogo</p>
-					<h1>Listado de productos</h1>
+					<p className='muted'>Catalog</p>
+					<h1>Product list</h1>
 				</div>
 				<SearchBar value={query} onChange={setQuery} />
 			</header>
@@ -35,8 +35,8 @@ const ProductListPage = () => {
 				{error && !loading && <ErrorState />}
 				{!loading && !error && filteredProducts.length === 0 && (
 					<EmptyState
-						title='No encontramos coincidencias'
-						description={`No hay resultados para "${query}". Intenta con otra marca o modelo.`}
+						title='No matching results'
+						description={`No products matched "${query}". Try another brand or model.`}
 					/>
 				)}
 				{!loading && !error && filteredProducts.length > 0 && (

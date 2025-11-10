@@ -40,12 +40,12 @@ const writeEntry = (key, value) => {
 	if (storage) {
 		try {
 			storage.setItem(key, value);
+			return;
 		} catch {
 			console.log('No se pudo escribir en el almacenamiento local');
 		}
-	} else {
-		memoryStore.set(key, value);
 	}
+	memoryStore.set(key, value);
 };
 
 const removeEntry = (key) => {
@@ -83,4 +83,16 @@ export const setCachedData = (key, data, ttl = DEFAULT_TTL_MS) => {
 export const cacheKeys = {
 	PRODUCTS: 'cache:products',
 	productDetail: (id) => `cache:product:${id}`,
+};
+
+export const clearCache = () => {
+	memoryStore.clear();
+	const storage = getStorage();
+	if (storage) {
+		try {
+			storage.clear();
+		} catch {
+			// ignorar
+		}
+	}
 };

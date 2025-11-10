@@ -12,17 +12,17 @@ import { useBreadcrumbs } from '../../hooks/useBreadcrumbs.js';
 
 const buildSpecs = (product) =>
 	[
-		{ label: 'Marca', value: product?.brand },
-		{ label: 'Modelo', value: product?.model },
-		{ label: 'Precio', value: product?.price ? `${product.price} €` : null },
+		{ label: 'Brand', value: product?.brand },
+		{ label: 'Model', value: product?.model },
+		{ label: 'Price', value: product?.price ? `${product.price} €` : null },
 		{ label: 'CPU', value: product?.cpu },
 		{ label: 'RAM', value: product?.ram },
-		{ label: 'Sistema Operativo', value: product?.os },
-		{ label: 'Resolucion', value: product?.displayResolution },
-		{ label: 'Bateria', value: product?.battery },
-		{ label: 'Camaras', value: [product?.primaryCamera, product?.secondaryCmera].filter(Boolean).join(' / ') },
-		{ label: 'Dimensiones', value: product?.dimentions },
-		{ label: 'Peso', value: product?.weight ? `${product.weight} g` : null },
+		{ label: 'Operating system', value: product?.os },
+		{ label: 'Resolution', value: product?.displayResolution },
+		{ label: 'Battery', value: product?.battery },
+		{ label: 'Cameras', value: [product?.primaryCamera, product?.secondaryCmera].filter(Boolean).join(' / ') },
+		{ label: 'Dimensions', value: product?.dimentions },
+		{ label: 'Weight', value: product?.weight ? `${product.weight} g` : null },
 	].filter((item) => item.value);
 
 const ProductDetailsPage = () => {
@@ -61,9 +61,9 @@ const ProductDetailsPage = () => {
 				if (typeof count === 'number' && count > prev) return count;
 				return prev + 1;
 			});
-			setFeedback({ type: 'success', message: 'Producto añadido correctamente.' });
+			setFeedback({ type: 'success', message: 'Product added to the cart.' });
 		} catch {
-			setFeedback({ type: 'error', message: 'No pudimos añadir el producto.' });
+			setFeedback({ type: 'error', message: 'We could not add the product.' });
 		} finally {
 			setSubmitting(false);
 		}
@@ -72,10 +72,10 @@ const ProductDetailsPage = () => {
 	useEffect(() => {
 		const crumbs = product
 			? [
-					{ label: 'Productos', to: '/' },
+					{ label: 'Products', to: '/' },
 					{ label: product.model, to: `/product/${product.id}` },
 			  ]
-			: [{ label: 'Productos', to: '/' }];
+			: [{ label: 'Products', to: '/' }];
 		setBreadcrumbs(crumbs);
 	}, [product, setBreadcrumbs]);
 
@@ -83,7 +83,7 @@ const ProductDetailsPage = () => {
 		return (
 			<section className='product-details'>
 				<Link to='/' className='back-link'>
-					← Volver
+					← Back to list
 				</Link>
 				<Loader />
 			</section>
@@ -94,9 +94,9 @@ const ProductDetailsPage = () => {
 		return (
 			<section className='product-details'>
 				<Link to='/' className='back-link'>
-					← Volver
+					← Back to list
 				</Link>
-				<ErrorState message='No pudimos cargar el producto.' />
+				<ErrorState message='We could not load the product.' />
 			</section>
 		);
 	}
@@ -108,7 +108,7 @@ const ProductDetailsPage = () => {
 			<header className='product-details__header'>
 				<div>
 					<Link to='/' className='back-link'>
-						← Volver
+						← Back to list
 					</Link>
 					<h1>{product.model}</h1>
 					<p className='muted'>{product.brand}</p>
@@ -120,7 +120,7 @@ const ProductDetailsPage = () => {
 				</div>
 				<div className='product-details__info'>
 					<header>
-						<p className='product-details__price'>{product.price ? `${product.price} €` : 'Consultar'}</p>
+						<p className='product-details__price'>{product.price ? `${product.price} €` : 'See price'}</p>
 					</header>
 					<ul className='product-details__specs'>
 						{specs.map((spec) => (
@@ -133,7 +133,7 @@ const ProductDetailsPage = () => {
 					<form className='product-details__form' onSubmit={handleSubmit}>
 						<div className='product-details__selects'>
 							<label>
-								<span>Almacenamiento</span>
+								<span>Storage</span>
 								<select value={selectedStorage} onChange={(event) => setSelectedStorage(event.target.value)}>
 									{storageOptions.map((option) => (
 										<option key={option.code} value={option.code}>
@@ -154,7 +154,7 @@ const ProductDetailsPage = () => {
 							</label>
 						</div>
 						<button type='submit' disabled={submitting || !selectedColor || !selectedStorage}>
-							{submitting ? 'Añadiendo…' : 'Añadir a la cesta'}
+							{submitting ? 'Adding...' : 'Add to cart'}
 						</button>
 						{feedback && <StateMessage variant={feedback.type === 'error' ? 'error' : 'info'}>{feedback.message}</StateMessage>}
 					</form>

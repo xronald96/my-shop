@@ -21,12 +21,12 @@ const withCache = async (cacheKey, fetcher, { forceRefresh = false } = {}) => {
 		const data = await fetcher();
 		setCachedData(cacheKey, data);
 		return data;
-	} catch (error) {
-		if (fallback) {
-			console.warn('Usando datos cacheados por error en el fetch:', error.message);
-			return fallback;
-		}
-		throw error;
+		} catch (error) {
+			if (fallback) {
+				console.warn('Using cached data because the fetch failed:', error.message);
+				return fallback;
+			}
+			throw error;
 	}
 };
 

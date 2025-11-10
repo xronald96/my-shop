@@ -10,7 +10,7 @@ const ProductCard = ({ product }) => (
 			<div className='product-card__body'>
 				<p className='product-card__brand'>{product.brand}</p>
 				<p className='product-card__model'>{product.model}</p>
-				<p className='product-card__price'>{product.price ? `${product.price} €` : 'Consultar'}</p>
+				<p className='product-card__price'>{product.price ? `${product.price} €` : 'See price'}</p>
 			</div>
 		</Link>
 	</li>

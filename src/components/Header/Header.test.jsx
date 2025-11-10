@@ -7,15 +7,25 @@ vi.mock('react-router-dom', () => ({
 	NavLink: ({ children }) => <span>{children}</span>,
 }));
 
+vi.mock('../../hooks/useCart.js', () => ({
+	useCart: () => ({ count: 2 }),
+}));
+
+vi.mock('../../hooks/useBreadcrumbs.js', () => ({
+	useBreadcrumbs: () => ({ items: [{ label: 'Products', to: '/' }, { label: 'Demo', to: '/demo' }] }),
+}));
+
 const renderHeader = () => renderToString(<Header />);
 
 describe('Header', () => {
-	it('renderiza la marca principal', () => {
+	it('renders brand name', () => {
 		expect(renderHeader()).toContain('myShop');
 	});
 
-	it('incluye enlaces de navegacion', () => {
+	it('includes navigation trail and cart count', () => {
 		const html = renderHeader();
-		expect(html).toContain('Productos');
+		expect(html).toContain('Products');
+		expect(html).toContain('Demo');
+		expect(html).toContain('2');
 	});
 });

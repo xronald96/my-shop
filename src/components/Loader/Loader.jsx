@@ -3,7 +3,7 @@ import './Loader.css';
 const Loader = () => (
 	<div className='loader' role='status' aria-live='polite'>
 		<span className='loader__spinner' />
-		<p className='loader__text'>Cargando...</p>
+		<p className='loader__text'>Loading...</p>
 	</div>
 );
 

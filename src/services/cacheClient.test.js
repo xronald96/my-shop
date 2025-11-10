@@ -1,14 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { getAnyCachedData, getCachedData, setCachedData } from './cacheClient.js';
+import { clearCache, getAnyCachedData, getCachedData, setCachedData } from './cacheClient.js';
 
 const uniqueKey = () => `cache:test:${Math.random().toString(36).slice(2)}`;
 
 describe('cacheClient', () => {
-	beforeEach(() => {
-		if (typeof window !== 'undefined') {
-			window.localStorage?.clear();
-		}
-	});
+beforeEach(() => {
+	clearCache();
+});
 
 	it('returns data while entry is fresh', () => {
 		const key = uniqueKey();

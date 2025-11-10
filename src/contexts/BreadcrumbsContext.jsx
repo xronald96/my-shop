@@ -1,6 +1,6 @@
 import { createContext, useCallback, useMemo, useState } from 'react';
 
-const DEFAULT_BREADCRUMBS = [{ label: 'Productos', to: '/' }];
+const DEFAULT_BREADCRUMBS = [{ label: 'Products', to: '/' }];
 
 const BreadcrumbsContext = createContext({
 	items: DEFAULT_BREADCRUMBS,

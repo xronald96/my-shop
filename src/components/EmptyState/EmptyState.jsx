@@ -1,6 +1,6 @@
 import './EmptyState.css';
 
-const EmptyState = ({ title = 'Sin resultados', description = 'Prueba con otra busqueda.' }) => (
+const EmptyState = ({ title = 'No results', description = 'Try a different search.' }) => (
 	<div className='empty-state'>
 		<h3>{title}</h3>
 		<p>{description}</p>
